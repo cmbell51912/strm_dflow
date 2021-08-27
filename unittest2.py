@@ -9,7 +9,7 @@ import sys
 import re
 
 PROJECT="gcp-stl"
-schema = 'job:STRING, company:STRING, name:STRING, sex:STRING, address:STRING'
+schema = 'job:STRING, company:STRING, name:STRING, sex:STRING, address:STRING, update_timestamp:STRING'
 TOPIC = "projects/gcp-stl/topics/cb-dflow-POC"
 
 class Split(beam.DoFn):
@@ -17,6 +17,7 @@ class Split(beam.DoFn):
     def process(self, element):
 
         import ast
+        from datetime import date
         element = ast.literal_eval(element)
 
         return [{
@@ -24,7 +25,8 @@ class Split(beam.DoFn):
             'company': element['company'],
             'name': element['name'],
             'sex': element['sex'],
-            'address': element['address']
+            'address': element['address'],
+            'update_timestamp': str(date.today())
         }]
 
 def main(argv=None):
