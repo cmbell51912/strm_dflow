@@ -18,18 +18,13 @@ class Split(beam.DoFn):
 
         import ast
         element = ast.literal_eval(element)
-    
-        new_dict = []
-        for key,value in element.items():
-            new_item = value
-            new_dict.append(new_item)
 
         return [{
-            'job': new_dict[0],
-            'company': new_dict[1],
-            'name': new_dict[2],
-            'sex': new_dict[3],
-            'address': new_dict[4]
+            'job': element['job'],
+            'company': element['company'],
+            'name': element['name'],
+            'sex': element['sex'],
+            'address': element['address']
         }]
 
 def main(argv=None):
